@@ -1,0 +1,17 @@
+## Interface: 70100
+## X-Curse-Project-Name: AdiBags_ArtifactPowerAndRelics
+## X-Curse-Project-ID: adibags_artifactpowerandrelics
+## X-Curse-Repository-ID: wow/adibags_artifactPowerAndRelics/mainline
+
+## Title: AdiBags - Filter for Artifact Power and Relics
+## Notes: Adds Artifact Power and Relics filter to AdiBags.
+## Author: SpareSimian
+## Version: v1.1
+## X-Curse-Packaged-Version: v1.1
+## X-Date: 2016-12-20T20:50:00Z
+
+## Dependencies: AdiBags
+
+AdiBags_ArtifactPowerAndRelics.lua
+
+# adapted from AdiBags_Bound
