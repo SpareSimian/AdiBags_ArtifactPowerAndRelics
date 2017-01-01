@@ -85,6 +85,16 @@ end
 local setNames = {}
 
 function setFilter:Filter(slotData)
+
+  if IsArtifactPowerItem(slotData.itemId) then
+    return L['ArtifactPowerSectionTitle']
+  end
+
+  if IsArtifactRelicItem(slotData.itemId) then
+    return L['ArtifactRelicsSectionTitle']
+  end
+
+--[[
   tooltip = tooltip or create()
   tooltip:SetOwner(UIParent,"ANCHOR_NONE")
   tooltip:ClearLines()
@@ -108,6 +118,7 @@ function setFilter:Filter(slotData)
     end
   end
   tooltip:Hide()
+--]]
 end
 
 function setFilter:GetOptions()
