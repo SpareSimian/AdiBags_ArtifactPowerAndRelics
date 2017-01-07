@@ -14,10 +14,15 @@ do -- Localization
   L['Legion'] = 'Legion items'
   L['Put Legion items in their own sections.'] = 'Put Legion items in their own sections.'
   -- color determined empirically
-  L['ArtifactPowerTooltip'] = '|cFFE6CC80Artifact Power|r'
-  L['ArtifactRelicTooltip'] = 'Artifact Relic'
+
+  L['ChampionEquipmentTooltip'] = 'Champion Equipment'
+  L['AncientManaTooltip'] = 'Ancient Mana'
+
   L['ArtifactPowerSectionTitle'] = 'Power'
   L['ArtifactRelicsSectionTitle'] = 'Relic'
+  L['ChampionEquipmentSectionTitle'] = 'Champion Equipment'
+  L['AncientManaSectionTitle'] = 'Ancient Mana'
+
   L['Enable Legion items'] = 'Enable Legion items'
   L['Check this if you want sections for Legion items.'] = 'Check this if you want sections for Legionitems.'
 
@@ -86,6 +91,10 @@ local setNames = {}
 
 function setFilter:Filter(slotData)
 
+  if not self.db.profile.enableLegion then
+    return
+  end
+
   if IsArtifactPowerItem(slotData.itemId) then
     return L['ArtifactPowerSectionTitle']
   end
@@ -94,7 +103,6 @@ function setFilter:Filter(slotData)
     return L['ArtifactRelicsSectionTitle']
   end
 
---[[
   tooltip = tooltip or create()
   tooltip:SetOwner(UIParent,"ANCHOR_NONE")
   tooltip:ClearLines()
@@ -107,18 +115,17 @@ function setFilter:Filter(slotData)
 
   for i = 1,6 do
     local t = tooltip.leftside[i]:GetText()
-    if t and self.db.profile.enableLegion then
-      if t == L['ArtifactPowerTooltip'] then
-        return L['ArtifactPowerSectionTitle']
+    if t then
+      if string.find(t, L['ChampionEquipmentTooltip']) then
+        return L['ChampionEquipmentSectionTitle']
       end
-      -- for relic, relic is preceded by type (eg. iron, storm, frost), so we look for substring
-      if string.find(t, L['ArtifactRelicTooltip']) then
-        return L['ArtifactRelicsSectionTitle']
+      if string.find(t, L['AncientManaTooltip']) then
+        return L['AncientManaSectionTitle']
       end
     end
   end
   tooltip:Hide()
---]]
+
 end
 
 function setFilter:GetOptions()
