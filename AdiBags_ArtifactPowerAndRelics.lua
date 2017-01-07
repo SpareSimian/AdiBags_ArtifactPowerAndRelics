@@ -1,5 +1,5 @@
 --[[
-AdiBags_ArtifactPowerAndRelics - Adds artifact power filter to AdiBags.
+AdiBags_Legion - Adds Legion items filter to AdiBags.
 Based on AdiBags_Bound Copyright 2010-2015 Kevin (kevin@outroot.com)
 --]]
 
@@ -10,16 +10,16 @@ local addon = LibStub('AceAddon-3.0'):GetAddon('AdiBags')
 local L = setmetatable({}, {__index = addon.L})
 
 do -- Localization
-  L['ArtifactPowerAndRelicsKey'] = 'ArtifactPowerAndRelics'
-  L['ArtifactPowerAndRelics'] = 'Artifact power and relics'
-  L['Put Artifact Power and Relics in their own sections.'] = 'Put Artifact Power and Relics in their own sections.'
+  L['LegionKey'] = 'Legion'
+  L['Legion'] = 'Legion items'
+  L['Put Legion items in their own sections.'] = 'Put Legion items in their own sections.'
   -- color determined empirically
   L['ArtifactPowerTooltip'] = '|cFFE6CC80Artifact Power|r'
   L['ArtifactRelicTooltip'] = 'Artifact Relic'
   L['ArtifactPowerSectionTitle'] = 'Power'
   L['ArtifactRelicsSectionTitle'] = 'Relic'
-  L['Enable Artifact Power and Relics'] = 'Enable Artifact Power and Relics'
-  L['Check this if you want sections for Artifact Power and Relic items.'] = 'Check this if you want sections for Artifact Power and Relic items.'
+  L['Enable Legion items'] = 'Enable Legion items'
+  L['Check this if you want sections for Legion items.'] = 'Check this if you want sections for Legionitems.'
 
   local locale = GetLocale()
   if locale == "frFR" then
@@ -59,13 +59,13 @@ end
 
 -- priority 93, one higher than the bound (BoA/BoE) filter so both BoA and BoE relics are gathered
 
-local setFilter = addon:RegisterFilter("ArtifactPowerAndRelics", 93, 'ABEvent-1.0')
-setFilter.uiName = L['ArtifactPowerAndRelics']
-setFilter.uiDesc = L['Put Artifact Power and Relics in their own sections.']
+local setFilter = addon:RegisterFilter("Legion", 93, 'ABEvent-1.0')
+setFilter.uiName = L['Legion']
+setFilter.uiDesc = L['Put Legion items in their own sections.']
 
 function setFilter:OnInitialize()
-  self.db = addon.db:RegisterNamespace('ArtifactPowerAndRelics', {
-    profile = { enableArtifactPowerAndRelics = true },
+  self.db = addon.db:RegisterNamespace('Legion', {
+    profile = { enableLegion = true },
     char = {  },
   })
 end
@@ -107,7 +107,7 @@ function setFilter:Filter(slotData)
 
   for i = 1,6 do
     local t = tooltip.leftside[i]:GetText()
-    if t and self.db.profile.enableArtifactPowerAndRelics then
+    if t and self.db.profile.enableLegion then
       if t == L['ArtifactPowerTooltip'] then
         return L['ArtifactPowerSectionTitle']
       end
@@ -123,9 +123,9 @@ end
 
 function setFilter:GetOptions()
   return {
-    enableArtifactPowerAndRelics = {
-      name = L['Enable Artifact Power and Relics'],
-      desc = L['Check this if you want sections for Artifact Power and Relic items.'],
+    enableLegion = {
+      name = L['Enable Legion items'],
+      desc = L['Check this if you want sections for Legion items.'],
       type = 'toggle',
       order = 10,
     },
